@@ -1,133 +1,117 @@
-# How to Set Up Active Directory Domain Services (AD DS) on Windows Server 2022
+# How to Create and Manage Users in Active Directory on Windows Server 2022
 
-This guide provides instructions for installing and configuring **Active Directory Domain Services (AD DS)** on **Windows Server 2022**. AD DS allows you to create and manage a domain, centralizing user and computer management within a network.
-
----
+This guide provides instructions on how to add users in **Active Directory (AD)** on **Windows Server 2022**.
 
 ## Prerequisites
 
-- A **Windows Server 2022** machine with **administrator privileges**.
-- A **static IP address** assigned to your server (see previous guide on setting a static IP).
-- DNS server configured (can be set up during AD DS installation).
+- **Windows Server 2022** with **Active Directory Domain Services (AD DS)** installed.
+- Administrator privileges to manage users in Active Directory.
 
 ---
 
-## Step 1: Install Active Directory Domain Services
+## Step 1: Open Active Directory Users and Computers
 
 1. **Open Server Manager**:
-   - Click the **Start** button and open **Server Manager**.
+   - Click on the **Start** button and select **Server Manager**.
 
-2. **Add Roles and Features**:
-   - In **Server Manager**, click on **Manage** at the top-right and select **Add Roles and Features**.
-   - The **Add Roles and Features Wizard** will open.
-
-![image](https://github.com/user-attachments/assets/ec963e24-cf20-47cf-bbfc-c064f448a57a)
+2. **Access AD DS**:
+   - In **Server Manager**, go to the **Tools** menu at the top-right corner.
+   - Select **Active Directory Users and Computers** from the drop-down list.
 
 
-3. **Select Installation Type**:
-   - Choose **Role-based or feature-based installation** and click **Next**.
-
-![image](https://github.com/user-attachments/assets/ff48e18b-74ff-4468-a8df-319186cf2d2a)
-
-
-4. **Select Destination Server**:
-   - Ensure your current server is selected and click **Next**.
-
-5. **Select Server Roles**:
-   - In the **Roles** list, check **Active Directory Domain Services**.
-     
-![image](https://github.com/user-attachments/assets/da9d401e-33d5-43f6-9f6d-a32bd4dd3523)
-
-   - A pop-up window will appear asking to add additional features. Click **Add Features**.
-
-![image](https://github.com/user-attachments/assets/024bbeac-8d3a-4f1a-b3e4-690ca12ed53d)
-
-   - Click **Next** to proceed.
-
-6. **Add Features**:
-   - You can leave the default features selected. Click **Next**.
-
-7. **AD DS Information**:
-   - Review the information about AD DS and click **Next**.
-
-8. **Confirm Installation**:
-   - Review your selections, then click **Install**.
-   - The installation process may take a few minutes. Once it’s complete, do not close the wizard as you’ll need it to promote the server to a domain controller.
-
-   
-![image](https://github.com/user-attachments/assets/d5d76f66-437e-4457-bcea-06ed56e11781)
+![image](https://github.com/user-attachments/assets/459d9fd7-eee4-4050-bd5e-1b6ffd50cd7b)
 
 ---
 
-## Step 2: Promote the Server to a Domain Controller
+## Step 2: Navigate to the Organizational Unit (OU)
 
-1. **Promote to Domain Controller**:
-   - Once AD DS is installed, click the **Promote this server to a domain controller** link in the wizard.
+1. In **Active Directory Users and Computers**, locate the **Organizational Unit (OU)** where you want to create the user.
+   - By default, you can create users in the **Users** container.
+   - You may also create your own OU for specific groups of users (e.g., **Employees**, **IT Department**, etc.).
 
-![image](https://github.com/user-attachments/assets/d4a18161-3c2c-4def-92b0-32e1ed9d8a01)
-
-
-2. **Deployment Configuration**:
-   - Choose **Add a new forest** and enter your desired **Root domain name** (e.g., `example.com`).
-   - Click **Next**.
-
-     
-![image](https://github.com/user-attachments/assets/bf7e0cf2-aa28-4492-b2a9-ce4857300b34)
+2. Right-click the OU (e.g., **Users**) where you want to add the user, and select **New > User**.
 
 
-3. **Domain Controller Options**:
-   - Choose the **Forest functional level** and **Domain functional level** (default to Windows Server 2022).
-   - Ensure **Domain Name System (DNS) server** is checked.
-   - Enter a **Directory Services Restore Mode (DSRM) password** and click **Next**.
-
-
-![image](https://github.com/user-attachments/assets/6faf3bc6-f24a-4942-b424-2db693099be8)
-
-
-4. **DNS Options**:
-   - A warning may appear about a DNS delegation; you can safely ignore this for now and click **Next**.
-
-
-![image](https://github.com/user-attachments/assets/e87773fa-61ae-4f95-ab8d-b088677883e3)
-
- 
-5. **Additional Options**:
-   - The **NetBIOS domain name** should be automatically generated based on your domain name. Click **Next**.
-
-6. **Paths**:
-   - Specify the locations for the **Database**, **Log files**, and **SYSVOL** folders or leave them at their default paths. Click **Next**.
-
-7. **Review Options**:
-   - Review your configurations. Click **Next** to begin the **prerequisite check**.
-
-8. **Install AD DS**:
-   - Once the prerequisite check is complete, click **Install** to promote the server.
-   - The server will automatically restart once the installation is complete
-
-
-![image](https://github.com/user-attachments/assets/d6b1f712-af31-48bb-87db-bf8dc5a33f05)
+![image](https://github.com/user-attachments/assets/cd17fa5f-ed91-4994-8e57-0f1ec3644de3)
 
 ---
 
-## Step 3: Verify the AD DS Installation
+## Step 3: Create a New User Account
 
-After your server reboots, log back in to verify that AD DS is set up and functioning properly.
+1. **Enter User Details**:
+   - In the **New Object - User** dialog, fill in the following fields:
+     - **First name**: Enter the user's first name.
+     - **Initials** (optional): Enter the user's initials.
+     - **Last name**: Enter the user's last name.
+     - **Full name**: This field auto-populates but can be edited if necessary.
+     - **User logon name**: This will be the username used for logging in (e.g., `jdoe`).
 
-1. **Check Server Manager**:
-   - Open **Server Manager**. You should see a new option labeled **AD DS** in the left-hand menu.
-   - Click on **AD DS** to verify the health and functionality of the Active Directory services.
+2. Click **Next** to proceed.
+
+![image](https://github.com/user-attachments/assets/8a1f969e-c9f7-4e83-8cd6-f1c811d47651)
+
+3. **Set Password**:
+   - Enter a password for the new user in the **Password** and **Confirm password** fields.
+   - Select the appropriate password options:
+     - **User must change password at next logon** (recommended for security).
+     - **User cannot change password**.
+     - **Password never expires**.
+     - **Account is disabled** (for accounts not yet ready for use).
+   - Click **Next** to continue.
 
 
-![image](https://github.com/user-attachments/assets/bf09270e-7327-4460-9dba-f59aae3d05f4)
+![image](https://github.com/user-attachments/assets/377636dd-4141-4629-80c6-01c0e1d8a912)
+
+
+4. **Finish**:
+   - Review the details and click **Finish** to create the new user account.
+
+![image](https://github.com/user-attachments/assets/d8fe3504-c204-4fac-8833-149a713dc1b3)
+
+---
+
+## Step 4: Configure Additional User Properties (Optional)
+
+Once the user account is created, you may want to configure additional properties.
+
+1. **Right-click** the newly created user account and select **Properties**.
+
+2. **Common Properties to Configure**:
+   - **General**: Modify contact details such as phone number and email.
+   - **Account**: Set logon hours, account expiration, and logon workstations.
+
+
+![image](https://github.com/user-attachments/assets/5f0a052a-9fde-4552-9083-de5147bf39d1)
+
+
+   - **Profile**: Configure user profile paths, logon scripts, and home folder paths.
+   - **Organization**: Specify job title, department, and company.
+
+3. Click **OK** to save any changes.
+
+---
+
+## Step 5: Test the New User Account
+
+1. **Log Out** or use a different device to log in with the new account.
+2. Enter the **username** and **password** for the new user account.
+3. Ensure that the user is prompted to change their password if you selected that option during setup.
 
 ---
 
 ## Additional Notes
 
-- **Static IP**: Ensure your server has a static IP address for consistent network identification.
-- **DNS Configuration**: The server is now also acting as a DNS server for the domain.
+- **Organizational Units**: Creating OUs can help you manage users by grouping them logically, which is useful for setting group policies.
+- **Security**: Regularly review user permissions and follow best practices for password policies.
+---
+
+## Additional Notes
+
+- **User Groups**: Adding users to specific groups determines their access permissions. Ensure you understand the purpose of each group and grant the user the appropriate access level.
+- **Active Directory**: If you’re managing multiple users across a domain, Active Directory simplifies user management and centralizes control over user access.
 
 ---
+
 ### Conclusion
 
-You have successfully installed and configured **Active Directory Domain Services (AD DS)** on **Windows Server 2022**. Your server is now a **Domain Controller** capable of managing user accounts, permissions, and security policies across your network.
+You have successfully created and configured a new user account in **Active Directory** on **Windows Server 2022**. This setup ensures centralized management and security for user accounts within your network. Managing user accounts is an essential part of server administration, and now you have the tools to efficiently create and manage them.
