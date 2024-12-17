@@ -1,117 +1,95 @@
-# How to Create and Manage Users in Active Directory on Windows Server 2022
+# How to Create Organizational Units (OUs) on Windows Server 2022
 
-This guide provides instructions on how to add users in **Active Directory (AD)** on **Windows Server 2022**.
+This guide walks you through the steps to create **Organizational Units (OUs)** on **Windows Server 2022** using the **Active Directory Users and Computers (ADUC)** tool.
 
 ## Prerequisites
 
-- **Windows Server 2022** with **Active Directory Domain Services (AD DS)** installed.
-- Administrator privileges to manage users in Active Directory.
+- A **Windows Server 2022** machine with **Active Directory Domain Services (AD DS)** installed.
+- **Administrator privileges** to manage Active Directory.
+- Basic understanding of **Active Directory** and **Organizational Units**.
 
 ---
 
-## Step 1: Open Active Directory Users and Computers
+## Step 1: Open Active Directory Users and Computers (ADUC)
 
 1. **Open Server Manager**:
-   - Click on the **Start** button and select **Server Manager**.
+   - Click the **Start** button and open **Server Manager**.
 
-2. **Access AD DS**:
-   - In **Server Manager**, go to the **Tools** menu at the top-right corner.
-   - Select **Active Directory Users and Computers** from the drop-down list.
-
-
-![image](https://github.com/user-attachments/assets/459d9fd7-eee4-4050-bd5e-1b6ffd50cd7b)
-
----
-
-## Step 2: Navigate to the Organizational Unit (OU)
-
-1. In **Active Directory Users and Computers**, locate the **Organizational Unit (OU)** where you want to create the user.
-   - By default, you can create users in the **Users** container.
-   - You may also create your own OU for specific groups of users (e.g., **Employees**, **IT Department**, etc.).
-
-2. Right-click the OU (e.g., **Users**) where you want to add the user, and select **New > User**.
+2. **Launch ADUC**:
+   - In **Server Manager**, click on **Tools** in the top-right corner.
+   - Select **Active Directory Users and Computers** from the dropdown. This will open the **ADUC** management console.
 
 
-![image](https://github.com/user-attachments/assets/cd17fa5f-ed91-4994-8e57-0f1ec3644de3)
+![image](https://github.com/user-attachments/assets/dfc54dd3-d71f-444e-9757-51b44698df15)
 
 ---
 
-## Step 3: Create a New User Account
+## Step 2: Navigate to the Domain
 
-1. **Enter User Details**:
-   - In the **New Object - User** dialog, fill in the following fields:
-     - **First name**: Enter the user's first name.
-     - **Initials** (optional): Enter the user's initials.
-     - **Last name**: Enter the user's last name.
-     - **Full name**: This field auto-populates but can be edited if necessary.
-     - **User logon name**: This will be the username used for logging in (e.g., `jdoe`).
+1. **Expand the Domain**:
+   - In the **ADUC** console, under the **Active Directory Users and Computers** section, find and expand your domain by clicking the arrow next to your domain name.
+   - You should see several default containers like **Users**, **Computers**, and **Domain Controllers**.
 
-2. Click **Next** to proceed.
-
-![image](https://github.com/user-attachments/assets/8a1f969e-c9f7-4e83-8cd6-f1c811d47651)
-
-3. **Set Password**:
-   - Enter a password for the new user in the **Password** and **Confirm password** fields.
-   - Select the appropriate password options:
-     - **User must change password at next logon** (recommended for security).
-     - **User cannot change password**.
-     - **Password never expires**.
-     - **Account is disabled** (for accounts not yet ready for use).
-   - Click **Next** to continue.
+2. **Select the Parent Container**:
+   - Right-click the domain or an existing container where you want to create the new OU (for example, **Users** or directly under the domain name) and select **New** > **Organizational Unit**.
 
 
-![image](https://github.com/user-attachments/assets/377636dd-4141-4629-80c6-01c0e1d8a912)
-
-
-4. **Finish**:
-   - Review the details and click **Finish** to create the new user account.
-
-![image](https://github.com/user-attachments/assets/d8fe3504-c204-4fac-8833-149a713dc1b3)
+![image](https://github.com/user-attachments/assets/70f7d344-63ca-42ba-8f78-778ef26f7b64)
 
 ---
 
-## Step 4: Configure Additional User Properties (Optional)
+## Step 3: Create the Organizational Unit (OU)
 
-Once the user account is created, you may want to configure additional properties.
+1. **Define the OU Name**:
+   - In the **New Object - Organizational Unit** window, type a name for the new OU (e.g., `Finance`, `HR`, `Sales`, etc.).
+   - You can also set an optional **description** for the OU.
 
-1. **Right-click** the newly created user account and select **Properties**.
+2. **Set Permissions (Optional)**:
+   - Optionally, you can choose to protect the OU from accidental deletion by checking the **Protect object from accidental deletion** box.
+   - Click **OK** to create the OU.
 
-2. **Common Properties to Configure**:
-   - **General**: Modify contact details such as phone number and email.
-   - **Account**: Set logon hours, account expiration, and logon workstations.
+![image](https://github.com/user-attachments/assets/010e45de-e6ea-430b-9b76-2c83ec74ce9d)
 
+Repeate the process to create as many as **OUs** you want.
 
-![image](https://github.com/user-attachments/assets/5f0a052a-9fde-4552-9083-de5147bf39d1)
-
-
-   - **Profile**: Configure user profile paths, logon scripts, and home folder paths.
-   - **Organization**: Specify job title, department, and company.
-
-3. Click **OK** to save any changes.
 
 ---
 
-## Step 5: Test the New User Account
+## Step 4: Verify the OU Creation
 
-1. **Log Out** or use a different device to log in with the new account.
-2. Enter the **username** and **password** for the new user account.
-3. Ensure that the user is prompted to change their password if you selected that option during setup.
+1. **Check the New OU**:
+   - You should now see the new OU listed under your domain or the container you chose. Expand the domain or container to verify that the OU has been successfully created.
+
+
+![image](https://github.com/user-attachments/assets/d50e9d72-d5ed-49f3-a668-a04ad9238086)
+
+
+2. **View the OU Properties (Optional)**:
+   - Right-click on the newly created OU and select **Properties** to modify settings, such as delegation of control or managing object security within the OU.
+
+---
+
+## Step 5: Move or Create Objects within the OU
+
+1. **Move Existing Objects**:
+   - To move users, computers, or groups into the new OU, right-click on an object (e.g., a user or computer) in the **Active Directory Users and Computers** console.
+   - Select **Move**, choose the newly created OU, and click **OK**.
+
+2. **Create New Objects in the OU**:
+   - Right-click on the new OU and select **New** to create objects like **User**, **Group**, or **Computer** inside the OU.
+   - Follow the prompts to complete the object creation.
 
 ---
 
 ## Additional Notes
 
-- **Organizational Units**: Creating OUs can help you manage users by grouping them logically, which is useful for setting group policies.
-- **Security**: Regularly review user permissions and follow best practices for password policies.
----
-
-## Additional Notes
-
-- **User Groups**: Adding users to specific groups determines their access permissions. Ensure you understand the purpose of each group and grant the user the appropriate access level.
-- **Active Directory**: If you’re managing multiple users across a domain, Active Directory simplifies user management and centralizes control over user access.
-
+- **Organizational Units (OUs)** are containers within Active Directory that help organize and manage resources in a domain. They provide a way to delegate control over specific groups of objects (users, groups, computers).
+- **OU Structure**: Plan your OU structure carefully, as it helps in applying Group Policies (GPOs) and delegating administrative permissions.
+- **Protection**: Use the **Protect object from accidental deletion** feature to prevent OUs from being mistakenly deleted.
+  
 ---
 
 ### Conclusion
 
-You have successfully created and configured a new user account in **Active Directory** on **Windows Server 2022**. This setup ensures centralized management and security for user accounts within your network. Managing user accounts is an essential part of server administration, and now you have the tools to efficiently create and manage them.
+You’ve successfully created an **Organizational Unit (OU)** on **Windows Server 2022**. Organizational Units help organize and manage Active Directory objects efficiently, making it easier to apply policies and delegate administrative tasks.
+
